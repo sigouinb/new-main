@@ -1,22 +1,52 @@
-
-
 import arcade
 import random
 
-class MyGame(arcade.Window):
-   def __init__(self, width, height, title):
-       # Call the parent class's init function
-       super().__init__(width, height, title)
+SCREEN_WIDTH = 800
+SCREEN_HEIGHT = 600
 
-liste_couleur = [arcade.color.BLUE, arcade.color.RED]
+COLORS = [arcade.color.BLUE, arcade.color.FANDANGO_PINK,
+arcade.color.FRENCH_ROSE, arcade.color.GOLDEN_POPPY]
+
+class Cercle():
+    def __init__(self, r,x,y,c):
+        self.rayon = r
+        self.centre_x = x
+        self.centre_y = y
+        self.color = (c)
+
+def draw(self):
+    #arcade.draw_circle_filled(center_x, center_y, rayon, color)
+    arcade.draw_circle_filled(self.centre_x, self.centre_y, self.rayon, self.color)
+
+
+class MyGame(arcade.Window):
+    def __init__(self):
+        super().__init__(SCREEN_WIDTH, SCREEN_HEIGHT, "Exercice #1")
+        self.liste_cercles = []
+
+
+
+def setup(self):
+# remplir la liste avec 20 objets de type Cercle
+  for _ in range(20):
+    rayon = random.randint(10, 50)
+    center_x = random.randint(0 + rayon, SCREEN_WIDTH - rayon)
+    center_y = random.randint(0 + rayon, SCREEN_HEIGHT - rayon)
+    color = random.choice(COLORS)
+    cercle= Cercle(rayon, center_x, center_y, color)
+    self.liste_cercles.append(cercle)
+def on_draw(self):
+    arcade.start_render()
+
+for cercle in self.liste_cercles:
+    cercle.draw()
+
 
 def main():
-    window = MyGame(640, 480, "Drawing Example")
-    def on_draw():
-        arcade.start_render()
-        for i in range(20):
-            arcade.draw_circle_filled(random.randint(10,640), random.randint(10,480), 10, (255, 54, 34))
-        arcade.run()
-    on_draw()
+    my_game = MyGame()
+    my_game.setup()
+
+arcade.run()
+
 
 main()
