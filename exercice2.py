@@ -32,16 +32,6 @@ class MyGame(arcade.Window):
         super().__init__(SCREEN_WIDTH, SCREEN_HEIGHT, "Exercice #1")
         self.liste_cercles = []
 
-    def setup(self):
-    # remplir la liste avec 20 objets de type Cercle
-        for _ in range(20):
-            rayon = random.randint(10, 50)
-            center_x = random.randint(0 + rayon, SCREEN_WIDTH - rayon)
-            center_y = random.randint(0 + rayon, SCREEN_HEIGHT - rayon)
-            color = random.choice(COLORS)
-            cercle= Cercle(rayon, center_x, center_y, color)
-            self.liste_cercles.append(cercle)
-
     # fonction qui transforme la liste en cercles affiches sur l'ecran
     def on_draw(self):
         arcade.start_render()
