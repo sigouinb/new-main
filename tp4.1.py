@@ -40,7 +40,6 @@ class Rectangle():
         self.center_x += self.rectangle_change_x
         self.center_y += self.rectangle_change_y
 
-
 # classe des cercles
 class Cercle():
     #fonction qui definit le rayon, la position et la couleur des cercles
@@ -52,11 +51,11 @@ class Cercle():
         self.cercle_change_x = a
         self.cercle_change_y = b
 
-    # fonction qui dessine les rectangles
+    # fonction qui dessine les cercles
     def draw(self):
         arcade.draw_circle_filled(self.center_x, self.center_y, self.rayon, self.color)
 
-    # fonction pour faire bouger les rectangles
+    # fonction pour faire bouger les cercles
     def on_update(self):
         if self.center_x < self.rayon:
             self.cercle_change_x *= -1
@@ -69,18 +68,15 @@ class Cercle():
         self.center_x += self.cercle_change_x
         self.center_y += self.cercle_change_y
 
-
 # classe du jeu
 class MyGame(arcade.Window):
-    # fonction qui affiche l'ecran et son titre
+    # fonction qui affiche l'ecran et son titre et permet d'afficher les objets
     def __init__(self):
         super().__init__(SCREEN_WIDTH, SCREEN_HEIGHT, "Exercice #TP4")
         self.liste_cercles = []
         self.liste_rectangles = []
 
-
-
-    # fonction qui transforme la liste en cercles affiches sur l'ecran
+    # appelle la fonction de dessiner les objets sur l'ecran
     def on_draw(self):
         arcade.start_render()
         for rectangle in self.liste_rectangles:
@@ -88,6 +84,7 @@ class MyGame(arcade.Window):
         for cercle in self.liste_cercles:
             cercle.draw()
 
+    #appelle la fonction de faire bouger les objets
     def on_update(self, delta_time: float):
         arcade.start_render()
         for rectangle in self.liste_rectangles:
@@ -95,11 +92,10 @@ class MyGame(arcade.Window):
         for cercle in self.liste_cercles:
             cercle.on_update()
 
-# fonction qui definit ce qui se passe quand on click
+    # fonction qui definit ce qui se passe quand on click
     def on_mouse_press(self, x: int, y: int, button: int, modifiers: int):
-            # pour chaque cercle, click gauche ou click droit:
+            #fait apparaitre un cercle et ses parametres sur un click gauche
             if button == arcade.MOUSE_BUTTON_LEFT:
-                # si le curseur est sur un cercle
                 rayon = random.randint(10, 50)
                 center_x = x
                 center_y = y
@@ -108,6 +104,7 @@ class MyGame(arcade.Window):
                 cercle_change_y = 3
                 cercle = Cercle(rayon, center_x, center_y, color, cercle_change_x, cercle_change_y)
                 self.liste_cercles.append(cercle)
+            # fait apparaitre un cercle et ses parametres sur un click droit
             if button == arcade.MOUSE_BUTTON_RIGHT:
                 center_x = x
                 center_y = y
@@ -118,8 +115,6 @@ class MyGame(arcade.Window):
                 rectangle_change_y = 3
                 rectangle = Rectangle(center_x, center_y, width, height, color, rectangle_change_x, rectangle_change_y)
                 self.liste_rectangles.append(rectangle)
-
-
 
 # fonction qui fait jouer le programme
 def main():
